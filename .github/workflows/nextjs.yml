@@ -39,6 +39,12 @@ jobs:
             exit 1
           fi
 
+      # Added: Update npm to latest version
+      - name: Update npm
+        run: |
+          npm install -g npm@latest
+          npm --version
+
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
@@ -50,7 +56,6 @@ jobs:
         with:
           static_site_generator: next
 
-      # Added: Clear cache step
       - name: Clear cache
         run: |
           rm -rf .next/cache
@@ -60,7 +65,6 @@ jobs:
             npm cache clean --force
           fi
 
-      # Modified: Cache restoration with new key
       - name: Restore cache
         uses: actions/cache@v4
         with:
@@ -71,10 +75,15 @@ jobs:
             ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json', '**/yarn.lock') }}-
             ${{ runner.os }}-nextjs-
 
+      # Modified: Added --no-audit flag to suppress notices
       - name: Install dependencies
-        run: ${{ steps.detect-package-manager.outputs.manager }} ${{ steps.detect-package-manager.outputs.command }}
+        run: |
+          if [ "${{ steps.detect-package-manager.outputs.manager }}" = "yarn" ]; then
+            yarn install --frozen-lockfile
+          else
+            npm ci --no-audit --no-fund --loglevel=error
+          fi
 
-      # Added: Create next.config.js if it doesn't exist
       - name: Configure Next.js
         run: |
           if [ ! -f next.config.js ]; then
@@ -91,10 +100,18 @@ jobs:
             module.exports = nextConfig" > next.config.js
           fi
 
+      # Modified: Added error logging
       - name: Build with Next.js
-        run: ${{ steps.detect-package-manager.outputs.runner }} next build
+        run: |
+          ${{ steps.detect-package-manager.outputs.runner }} next build || {
+            echo "Build failed. Checking for error logs..."
+            cat .next/error.log || true
+            exit 1
+          }
         env:
-          CI: false # Added to bypass CI-specific checks
+          CI: false
+          NODE_ENV: production
+          npm_config_loglevel: error
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
