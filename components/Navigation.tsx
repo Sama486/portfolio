@@ -1,3 +1,4 @@
+"use client"
 import React, { useState } from 'react';
 import { X, Menu, Sun, Moon, Globe } from 'lucide-react';
 import { translations } from '@/data/translations';
