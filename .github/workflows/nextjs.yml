@@ -62,9 +62,8 @@ jobs:
 
       - name: Configure Next.js
         run: |
-          echo "import type { NextConfig } from 'next';
-
-          const nextConfig: NextConfig = {
+          echo "/** @type {import('next').NextConfig} */
+          const nextConfig = {
             output: 'export',
             basePath: '/portfolio',
             assetPrefix: '/portfolio/',
@@ -79,7 +78,7 @@ jobs:
             }
           };
 
-          export default nextConfig;" > next.config.js
+          module.exports = nextConfig;" > next.config.js
 
       - name: Install dependencies
         run: |
