@@ -9,28 +9,21 @@ import Skills from '@/components/Skills';
 import Contact from '@/components/Contact';
 import Footer from '@/components/Footer';
 
-
 const Home: React.FC = () => {
   const [language, setLanguage] = useState<'de' | 'en'>('de');
   const [darkMode, setDarkMode] = useState<boolean>(true);
 
-  // Initialize theme from localStorage on component mount
   useEffect(() => {
-    const isDark = localStorage.getItem('darkMode') === 'true';
-    setDarkMode(isDark);
-    if (isDark) {
-      document.documentElement.classList.add('dark');
-    }
+    document.documentElement.classList.add('dark');
+    localStorage.setItem('darkMode', 'true');
   }, []);
 
-  // Handle theme changes
   const toggleDarkMode = () => {
     const newDarkMode = !darkMode;
     setDarkMode(newDarkMode);
     localStorage.setItem('darkMode', newDarkMode.toString());
     document.documentElement.classList.toggle('dark');
   };
-
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors duration-200">

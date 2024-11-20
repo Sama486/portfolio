@@ -2,7 +2,6 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { translations } from '@/data/translations';
 import { getSkill } from '@/data/skills';
-import { fadeInUp, staggerContainer } from '@/utils/animations';
 
 interface SkillsProps {
   language: 'de' | 'en';
@@ -29,37 +28,46 @@ const SkillCategory: React.FC<SkillCategoryProps> = ({
   const containerVariants = {
     hidden: { 
       opacity: 0,
-      y: 50,
-      scale: 0.95
+      y: 30,
+      rotateX: -10
     },
     visible: { 
       opacity: 1,
       y: 0,
-      scale: 1,
+      rotateX: 0,
       transition: {
-        duration: 0.5,
-        ease: [0.22, 1, 0.36, 1],
-        delay: index * 0.2
+        duration: 0.6,
+        ease: [0.23, 1, 0.32, 1],
+        delay: index * 0.2,
+        when: "beforeChildren",
+        staggerChildren: 0.05
       }
     }
   };
 
   const skillVariants = {
-    hidden: { opacity: 0, scale: 0.8 },
-    visible: { 
+    hidden: { 
+      opacity: 0,
+      scale: 0.8,
+      y: 20
+    },
+    visible: (i: number) => ({ 
       opacity: 1,
       scale: 1,
+      y: 0,
       transition: {
-        duration: 0.3,
-        ease: [0.22, 1, 0.36, 1]
+        delay: i * 0.1,
+        duration: 0.4,
+        ease: [0.34, 1.56, 0.64, 1]
       }
-    },
+    }),
     hover: { 
-      scale: 1.1,
+      scale: 1.08,
+      y: -4,
       transition: {
         type: "spring",
         stiffness: 400,
-        damping: 10
+        damping: 25
       }
     }
   };
@@ -67,31 +75,33 @@ const SkillCategory: React.FC<SkillCategoryProps> = ({
   return (
     <motion.div 
       variants={containerVariants}
-      whileHover={{ 
-        scale: 1.02,
-        transition: { duration: 0.2 }
-      }}
-      className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 transform-gpu"
+      className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 transform-gpu"
     >
       <motion.h3 
-        variants={fadeInUp}
-        className="text-xl font-semibold mb-4 dark:text-white"
+        variants={{
+          hidden: { opacity: 0, x: -20 },
+          visible: { 
+            opacity: 1, 
+            x: 0,
+            transition: {
+              duration: 0.5,
+              ease: "easeOut"
+            }
+          }
+        }}
+        className="text-xl font-semibold mb-4 text-gray-900 dark:text-white"
       >
         {title}
       </motion.h3>
-      <motion.div 
-        variants={staggerContainer}
-        initial="hidden"
-        animate="visible"
-        className="flex flex-wrap gap-2"
-      >
-        {skills.map((skill) => (
+      <motion.div className="flex flex-wrap gap-2">
+        {skills.map((skill, i) => (
           <motion.span
             key={skill}
             variants={skillVariants}
+            custom={i}
             whileHover="hover"
             className={`${colorClass.bg} ${colorClass.text} dark:${colorClass.darkBg} dark:${colorClass.darkText} 
-              px-3 py-1 rounded-full text-sm cursor-default transform-gpu`}
+              px-3 py-1 rounded-full text-sm font-medium cursor-default transform-gpu`}
           >
             {skill}
           </motion.span>
@@ -121,21 +131,36 @@ const Skills: React.FC<SkillsProps> = ({ language }) => {
 
   return (
     <motion.section
-      id="skills"
       initial="hidden"
       whileInView="visible"
-      viewport={{ once: true, margin: "-100px" }}
+      viewport={{ once: true, margin: "-50px" }}
       className="bg-gray-50 dark:bg-gray-900 py-20 transition-colors duration-200"
     >
       <div className="max-w-6xl mx-auto px-4">
         <motion.h2 
-          variants={fadeInUp}
-          className="text-3xl font-bold mb-8 text-center dark:text-white"
+          variants={{
+            hidden: { opacity: 0, y: -20 },
+            visible: { 
+              opacity: 1, 
+              y: 0,
+              transition: { duration: 0.6, ease: "easeOut" }
+            }
+          }}
+          className="text-3xl font-bold mb-8 text-center text-gray-900 dark:text-white"
         >
           {translations[language].skills.title}
         </motion.h2>
         <motion.div 
-          variants={staggerContainer}
+          variants={{
+            hidden: { opacity: 0 },
+            visible: {
+              opacity: 1,
+              transition: {
+                staggerChildren: 0.2,
+                delayChildren: 0.1
+              }
+            }
+          }}
           className="grid md:grid-cols-2 gap-6"
         >
           <SkillCategory
