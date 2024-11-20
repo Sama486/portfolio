@@ -2,8 +2,8 @@ import { Experience } from '../types/interfaces';
 
 export const getExperience = (language: string): Experience[] => [
     {
-      title: "Full Stack Developer",
-      company: "Proxypo - Gesundheitsamt Frankfurt",
+      title: "Full Stack Developer / Proxy PO",
+      company: "Gesundheitsamt Frankfurt",
       period: language === 'de' ? "12/2023 - Heute" : "12/2023 - Present",
       responsibilities: [
         language === 'de' ?
