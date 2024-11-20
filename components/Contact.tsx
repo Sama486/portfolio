@@ -2,7 +2,6 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Mail, Github, Linkedin } from 'lucide-react';
 import { translations } from '@/data/translations';
-import { fadeInUp, staggerContainer, socialIconAnimation } from '@/utils/animations';
 
 interface ContactProps {
   language: 'de' | 'en';
@@ -20,17 +19,30 @@ interface SocialLinkProps {
   hoverColor: string;
 }
 
+const socialIconVariants = {
+  initial: { scale: 1, rotate: 0 },
+  hover: {
+    scale: [1, 1.2, 1.2, 1.1, 1.2],
+    rotate: [0, -10, 10, -10, 0],
+    transition: {
+      duration: 0.4,
+      ease: "easeInOut",
+    }
+  },
+  tap: { scale: 0.9 }
+};
+
 const ContactItem: React.FC<ContactItemProps> = ({ icon, content, delay = 0 }) => (
   <motion.p
-    variants={fadeInUp}
-    custom={delay}
+    initial={{ opacity: 0, y: 20 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    viewport={{ once: true }}
+    transition={{ duration: 0.6, delay }}
     className="flex items-center justify-center dark:text-white group"
     whileHover={{ x: 10 }}
-    transition={{ type: "spring", stiffness: 300 }}
   >
     <motion.span
-      initial={{ scale: 1 }}
-      whileHover={{ scale: 1.2 }}
+      whileHover={{ scale: 1.2, rotate: 360 }}
       transition={{ type: "spring", stiffness: 400 }}
       className="mr-2"
     >
@@ -46,9 +58,10 @@ const SocialLink: React.FC<SocialLinkProps> = ({ href, icon, hoverColor }) => (
     target="_blank"
     rel="noopener noreferrer"
     className={`text-gray-600 dark:text-gray-400 ${hoverColor} dark:${hoverColor}`}
-    variants={socialIconAnimation}
+    variants={socialIconVariants}
+    initial="initial"
     whileHover="hover"
-    whileTap={{ scale: 0.95 }}
+    whileTap="tap"
   >
     {icon}
   </motion.a>
@@ -73,53 +86,34 @@ const Contact: React.FC<ContactProps> = ({ language }) => {
     ]
   };
 
-  const containerVariants = {
-    hidden: { 
-      opacity: 0,
-      y: 50,
-      scale: 0.95
-    },
-    visible: { 
-      opacity: 1,
-      y: 0,
-      scale: 1,
-      transition: {
-        duration: 0.5,
-        ease: [0.22, 1, 0.36, 1]
-      }
-    },
-    hover: {
-      scale: 1.02,
-      transition: {
-        duration: 0.2
-      }
-    }
-  };
-
   return (
     <motion.section
       id="contact"
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, margin: "-100px" }}
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1 }}
+      viewport={{ once: true, amount: 0.3 }}
+      transition={{ duration: 0.8 }}
       className="bg-white dark:bg-gray-800 py-20 transition-colors duration-200"
     >
       <div className="max-w-6xl mx-auto px-4">
         <motion.h2
-          variants={fadeInUp}
+          initial={{ opacity: 0, y: -20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
           className="text-3xl font-bold mb-8 text-center dark:text-white"
         >
           {translations[language].contact.title}
         </motion.h2>
         <motion.div
-          variants={containerVariants}
-          whileHover="hover"
-          className="bg-white dark:bg-gray-700 rounded-lg shadow-md p-8 max-w-xl mx-auto transform-gpu"
+          initial={{ opacity: 0, scale: 0.8 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          whileHover={{ scale: 1.02 }}
+          className="bg-white dark:bg-gray-700 rounded-lg shadow-md p-8 max-w-xl mx-auto"
         >
-          <motion.div
-            variants={staggerContainer}
-            className="space-y-4 text-center"
-          >
+          <div className="space-y-4 text-center">
             <ContactItem
               icon={<Mail className="mr-2" />}
               content={
@@ -127,7 +121,6 @@ const Contact: React.FC<ContactProps> = ({ language }) => {
                   href={`mailto:${contactData.email}`}
                   className="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300"
                   whileHover={{ scale: 1.05 }}
-                  transition={{ type: "spring", stiffness: 400 }}
                 >
                   {contactData.email}
                 </motion.a>
@@ -138,12 +131,9 @@ const Contact: React.FC<ContactProps> = ({ language }) => {
             <ContactItem
               icon="📍"
               content={
-                <motion.span
-                  className="text-gray-600 dark:text-gray-300 ml-2"
-                  variants={fadeInUp}
-                >
+                <span className="text-gray-600 dark:text-gray-300 ml-2">
                   {contactData.location}
-                </motion.span>
+                </span>
               }
               delay={0.2}
             />
@@ -151,18 +141,18 @@ const Contact: React.FC<ContactProps> = ({ language }) => {
             <ContactItem
               icon="📱"
               content={
-                <motion.span
-                  className="text-gray-600 dark:text-gray-300 ml-2"
-                  variants={fadeInUp}
-                >
+                <span className="text-gray-600 dark:text-gray-300 ml-2">
                   {contactData.phone}
-                </motion.span>
+                </span>
               }
               delay={0.3}
             />
 
             <motion.div
-              variants={staggerContainer}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.4 }}
               className="flex justify-center space-x-4 mt-4"
             >
               {contactData.social.map((link, index) => (
@@ -174,7 +164,7 @@ const Contact: React.FC<ContactProps> = ({ language }) => {
                 />
               ))}
             </motion.div>
-          </motion.div>
+          </div>
         </motion.div>
       </div>
     </motion.section>

@@ -89,7 +89,7 @@ const About: React.FC<AboutProps> = ({ language }) => {
             scale: 1.01,
             boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)",
             y: -5,
-            transition: { duration: 0 }
+            transition: { duration: 0.2 }
           }}
           className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-8"
         >

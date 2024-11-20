@@ -1,11 +1,30 @@
+import React from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { Github, Linkedin, Mail } from 'lucide-react';
 import { translations } from '@/data/translations';
-import { fadeInUp, staggerContainer, socialIconAnimation, floatingAnimation } from '@/utils/animations';
+import { fadeInUp, staggerContainer, floatingAnimation } from '@/utils/animations';
 
 interface HeroProps {
   language: 'de' | 'en';
 }
+
+interface SocialLinkProps {
+  href: string;
+  icon: React.ReactNode;
+  hoverColor: string;
+}
+
+const socialIconVariants = {
+  initial: { scale: 1, rotate: 0 },
+  hover: {
+    scale: [1, 1.2, 1.2, 1.1, 1.2],
+    rotate: [0, -10, 10, -10, 0],
+    transition: {
+      duration: 0.4,
+      ease: "easeInOut",
+    }
+  }
+};
 
 const AnimatedBackground: React.FC = () => {
   const shapes = Array.from({ length: 50 }, (_, i) => ({
@@ -38,6 +57,21 @@ const AnimatedBackground: React.FC = () => {
     </div>
   );
 };
+
+const SocialLink: React.FC<SocialLinkProps> = ({ href, icon, hoverColor }) => (
+  <motion.a 
+    href={href}
+    target="_blank"
+    rel="noopener noreferrer"
+    variants={socialIconVariants}
+    initial="initial"
+    whileHover="hover"
+    whileTap={{ scale: 0.9 }}
+    className={`text-gray-600 dark:text-gray-400 ${hoverColor} dark:${hoverColor}`}
+  >
+    {icon}
+  </motion.a>
+);
 
 const Hero: React.FC<HeroProps> = ({ language }) => {
   const { scrollY } = useScroll();
@@ -143,24 +177,5 @@ const Hero: React.FC<HeroProps> = ({ language }) => {
     </motion.section>
   );
 };
-
-interface SocialLinkProps {
-  href: string;
-  icon: React.ReactNode;
-  hoverColor: string;
-}
-
-const SocialLink: React.FC<SocialLinkProps> = ({ href, icon, hoverColor }) => (
-  <motion.a 
-    href={href}
-    target="_blank"
-    rel="noopener noreferrer"
-    variants={socialIconAnimation}
-    whileHover="hover"
-    className={`text-gray-600 dark:text-gray-400 ${hoverColor} dark:${hoverColor}`}
-  >
-    {icon}
-  </motion.a>
-);
 
 export default Hero;
