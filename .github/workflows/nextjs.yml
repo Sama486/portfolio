@@ -50,7 +50,6 @@ jobs:
         with:
           static_site_generator: next
 
-      # Added: Create or update ESLint config
       - name: Configure ESLint
         run: |
           echo '{
@@ -61,12 +60,14 @@ jobs:
             }
           }' > .eslintrc.json
 
-      # Added: Create or update next.config.js
       - name: Configure Next.js
         run: |
-          echo "/** @type {import('next').NextConfig} */
-          const nextConfig = {
+          echo "import type { NextConfig } from 'next';
+
+          const nextConfig: NextConfig = {
             output: 'export',
+            basePath: '/portfolio',
+            assetPrefix: '/portfolio/',
             images: {
               unoptimized: true,
             },
@@ -76,8 +77,9 @@ jobs:
             typescript: {
               ignoreBuildErrors: true
             }
-          }
-          module.exports = nextConfig" > next.config.js
+          };
+
+          export default nextConfig;" > next.config.js
 
       - name: Install dependencies
         run: |
@@ -93,6 +95,7 @@ jobs:
         env:
           CI: false
           NEXT_TELEMETRY_DISABLED: 1
+          NEXT_PUBLIC_BASE_PATH: /portfolio
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
