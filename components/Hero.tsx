@@ -26,7 +26,8 @@ const socialIconVariants = {
   }
 };
 
-const AnimatedBackground: React.FC = () => {
+// Refactored AnimatedBackground component without React.FC
+const AnimatedBackground = () => {
   const shapes = Array.from({ length: 50 }, (_, i) => ({
     id: i,
     size: Math.random() * 20 + 10,
@@ -58,7 +59,8 @@ const AnimatedBackground: React.FC = () => {
   );
 };
 
-const SocialLink: React.FC<SocialLinkProps> = ({ href, icon, hoverColor }) => (
+// Refactored SocialLink component without React.FC
+const SocialLink = ({ href, icon, hoverColor }: SocialLinkProps) => (
   <motion.a 
     href={href}
     target="_blank"
@@ -73,7 +75,8 @@ const SocialLink: React.FC<SocialLinkProps> = ({ href, icon, hoverColor }) => (
   </motion.a>
 );
 
-const Hero: React.FC<HeroProps> = ({ language }) => {
+// Refactored Hero component without React.FC
+const Hero = ({ language }: HeroProps) => {
   const { scrollY } = useScroll();
   const y = useTransform(scrollY, [0, 500], [0, -50]);
 

@@ -19,12 +19,13 @@ interface SkillCategoryProps {
   index: number;
 }
 
-const SkillCategory: React.FC<SkillCategoryProps> = ({ 
+// Refactored SkillCategory component without React.FC
+const SkillCategory = ({ 
   title, 
   skills, 
   colorClass,
   index
-}) => {
+}: SkillCategoryProps) => {
   const containerVariants = {
     hidden: { 
       opacity: 0,
@@ -111,7 +112,8 @@ const SkillCategory: React.FC<SkillCategoryProps> = ({
   );
 };
 
-const Skills: React.FC<SkillsProps> = ({ language }) => {
+// Refactored Skills component without React.FC
+const Skills = ({ language }: SkillsProps) => {
   const skills = getSkill(language);
 
   const colorClasses = {
@@ -135,6 +137,7 @@ const Skills: React.FC<SkillsProps> = ({ language }) => {
       whileInView="visible"
       viewport={{ once: true, margin: "-50px" }}
       className="bg-gray-50 dark:bg-gray-900 py-20 transition-colors duration-200"
+      id='skills'
     >
       <div className="max-w-6xl mx-auto px-4">
         <motion.h2 

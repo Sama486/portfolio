@@ -13,7 +13,8 @@ interface JobCardProps {
   index: number;
 }
 
-const JobCard: React.FC<JobCardProps> = ({ job, index }) => {
+// Refactored JobCard component without React.FC
+const JobCard = ({ job, index }: JobCardProps) => {
   const cardRef = React.useRef(null);
   const isInView = useInView(cardRef, { once: true, amount: 0.3 });
 
@@ -22,13 +23,13 @@ const JobCard: React.FC<JobCardProps> = ({ job, index }) => {
       ref={cardRef}
       initial={{ opacity: 0, x: -50 }}
       animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }}
-      transition={{ duration: 0.5, delay: index * 0.2 }}
+      transition={{ duration: 0.5 }}
       whileHover={{ scale: 1.02, transition: { duration: 0.2 } }}
-      className="bg-white dark:bg-gray-700 rounded-lg shadow-md p-6 border dark:border-gray-600"
+      className="bg-white dark:bg-gray-700 rounded-lg shadow-md p-6 border dark:border-gray-600 pl-10"
     >
       <div className="flex flex-col md:flex-row justify-between items-start mb-4">
         <motion.div 
-          whileHover={{ x: 10, transition: { duration: 0.2 } }}
+          whileHover={{ x: 0, transition: { duration: 0.2 } }}
         >
           <h3 className="text-xl font-semibold dark:text-white">{job.title}</h3>
           <p className="text-gray-600 dark:text-gray-300">{job.company}</p>
@@ -42,7 +43,7 @@ const JobCard: React.FC<JobCardProps> = ({ job, index }) => {
             initial={{ opacity: 0, x: -20 }}
             animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }}
             transition={{ duration: 0.3, delay: (index * 0.2) + ((idx + 1) * 0.1) }}
-            whileHover={{ x: 20, transition: { duration: 0.2 } }}
+            whileHover={{ x: 0, transition: { duration: 0.2 } }}
             className="text-gray-600 dark:text-gray-300 pl-4 ml-4 cursor-default"
           >
             <span className="flex">
@@ -55,7 +56,8 @@ const JobCard: React.FC<JobCardProps> = ({ job, index }) => {
   );
 };
 
-const Experience: React.FC<ExperienceProps> = ({ language }) => {
+// Refactored Experience component without React.FC
+const Experience = ({ language }: ExperienceProps) => {
   const experience = getExperience(language);
   const titleRef = React.useRef(null);
   const isTitleInView = useInView(titleRef, { once: true });

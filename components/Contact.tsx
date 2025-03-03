@@ -32,7 +32,8 @@ const socialIconVariants = {
   tap: { scale: 0.9 }
 };
 
-const ContactItem: React.FC<ContactItemProps> = ({ icon, content, delay = 0 }) => (
+// Refactored ContactItem component without React.FC
+const ContactItem = ({ icon, content, delay = 0 }: ContactItemProps) => (
   <motion.p
     initial={{ opacity: 0, y: 20 }}
     whileInView={{ opacity: 1, y: 0 }}
@@ -52,7 +53,8 @@ const ContactItem: React.FC<ContactItemProps> = ({ icon, content, delay = 0 }) =
   </motion.p>
 );
 
-const SocialLink: React.FC<SocialLinkProps> = ({ href, icon, hoverColor }) => (
+// Refactored SocialLink component without React.FC
+const SocialLink = ({ href, icon, hoverColor }: SocialLinkProps) => (
   <motion.a
     href={href}
     target="_blank"
@@ -67,7 +69,8 @@ const SocialLink: React.FC<SocialLinkProps> = ({ href, icon, hoverColor }) => (
   </motion.a>
 );
 
-const Contact: React.FC<ContactProps> = ({ language }) => {
+// Refactored Contact component without React.FC
+const Contact = ({ language }: ContactProps) => {
   const contactData = {
     email: 'k.benziane@web.de',
     location: 'Frankfurt am Main',

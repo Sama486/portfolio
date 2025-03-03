@@ -9,9 +9,11 @@ import Skills from '@/components/Skills';
 import Contact from '@/components/Contact';
 import Footer from '@/components/Footer';
 
+
 const Home: React.FC = () => {
   const [language, setLanguage] = useState<'de' | 'en'>('de');
   const [darkMode, setDarkMode] = useState<boolean>(true);
+  const [slider, setSlider] = useState<boolean>(false);
 
   useEffect(() => {
     document.documentElement.classList.add('dark');
@@ -24,6 +26,8 @@ const Home: React.FC = () => {
     localStorage.setItem('darkMode', newDarkMode.toString());
     document.documentElement.classList.toggle('dark');
   };
+
+
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors duration-200">

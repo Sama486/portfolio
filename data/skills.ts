@@ -4,7 +4,7 @@
     technical: [
       "Next.js", "React.js", "TypeScript", "JavaScript", "HTML", "CSS",
       "Node.js", "C#/.NET", "MongoDB", "SQL", "Prisma", "Google Cloud",
-      "Tailwind/Bootstrap", "Linux", "Docker"
+      "Tailwind/Bootstrap", "Linux", "Docker", "Kubernetes", "Python", "Java", "Git"
     ],
     soft: [
       language === 'de' ? "Agile Methoden" : "Agile Methods",

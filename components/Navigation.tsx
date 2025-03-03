@@ -10,12 +10,12 @@ interface NavigationProps {
   setLanguage: (lang: 'de' | 'en') => void;
 }
 
-const Navigation: React.FC<NavigationProps> = ({
+const Navigation = ({
   darkMode,
   toggleDarkMode,
   language,
   setLanguage
-}) => {
+}: NavigationProps) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const navItems: Array<keyof typeof translations.en.nav> = ['about', 'experience', 'skills', 'contact'];
@@ -113,4 +113,3 @@ const Navigation: React.FC<NavigationProps> = ({
 };
 
 export default Navigation;
-

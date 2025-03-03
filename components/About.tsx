@@ -15,7 +15,8 @@ interface LanguageItem {
   level: keyof Translations['about'];
 }
 
-const LanguageCard: React.FC<{ lang: LanguageItem; language: 'de' | 'en' }> = ({ lang, language }) => {
+// Refactored LanguageCard component without React.FC
+const LanguageCard = ({ lang, language }: { lang: LanguageItem; language: 'de' | 'en' }) => {
   return (
     <motion.div 
       whileHover={{ 
@@ -66,7 +67,8 @@ const LANGUAGES: LanguageItem[] = [
   }
 ];
 
-const About: React.FC<AboutProps> = ({ language }) => {
+// Refactored About component without React.FC
+const About = ({ language }: AboutProps) => {
   return (
     <section id="about" className="bg-gray-50 dark:bg-gray-900 py-20 transition-colors duration-200">
       <div className="max-w-6xl mx-auto px-4">
