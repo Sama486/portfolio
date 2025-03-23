@@ -27,7 +27,7 @@ export const getCertificates = (language: string): CertificateCategory[] => [
       },
       {
         id: "programming-4",
-        title: "Coursera HC1V1II4863G",
+        title: "Coursera Introduction to Programming with Python and Java",
         category: language === 'de' ? "Programmierung" : "Programming",
         pdfUrl: "./certificates/Wichtig/Coursera HC1V1II4863G.pdf"
       },

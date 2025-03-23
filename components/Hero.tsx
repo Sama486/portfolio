@@ -220,7 +220,7 @@ const Hero = ({ language, openCertificateSlideshow }: HeroProps) => {
               {/* Zertifikate-Button - Separate from social icons */}
               <motion.div 
                 variants={fadeInUp}
-                className="mt-2 self-end md:self-start md:mt-4"
+                className="mt-2 self-center md:self-start md:mt-4"
               >
                 <SocialLink 
                   href="#"
