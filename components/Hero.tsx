@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { Github, Linkedin, Mail, FileText } from 'lucide-react';
 import { translations } from '@/data/translations';
@@ -49,15 +49,28 @@ const buttonVariants = {
   }
 };
 
-// Refactored AnimatedBackground component without React.FC
+// Client-side only AnimatedBackground to prevent hydration mismatch
 const AnimatedBackground = () => {
-  const shapes = Array.from({ length: 50 }, (_, i) => ({
-    id: i,
-    size: Math.random() * 20 + 10,
-    left: Math.random() * 100,
-    animationDuration: Math.random() * 20 + 20,
-    delay: Math.random() * -20
-  }));
+  const [shapes, setShapes] = useState<Array<{
+    id: number;
+    size: number;
+    left: number;
+    animationDuration: number;
+    delay: number;
+  }>>([]);
+
+  // Generate shapes only on the client side
+  useEffect(() => {
+    const generatedShapes = Array.from({ length: 50 }, (_, i) => ({
+      id: i,
+      size: Math.random() * 20 + 10,
+      left: Math.random() * 100,
+      animationDuration: Math.random() * 20 + 20,
+      delay: Math.random() * -20
+    }));
+    
+    setShapes(generatedShapes);
+  }, []);
 
   return (
     <div className="absolute inset-0 overflow-hidden pointer-events-none">
