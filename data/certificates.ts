@@ -42,7 +42,7 @@ export const getCertificates = (language: string): CertificateCategory[] => [
                 id: "programming-6",
                 title: "Coursera Docker Kubernetes OpenShift",
                 category: language === 'de' ? "Programmierung" : "Programming",
-                pdfUrl: "./certificates/Wichtig/Coursera Docker Kubernetes OpenShift.pdf",
+                pdfUrl: "./certificates/Wichtig/Coursera Docker Kubernetes Openshift.pdf",
                 description: language === 'de' ? "Container-Technologien" : "Container technologies"
             },
             {
