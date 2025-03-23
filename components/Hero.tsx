@@ -1,17 +1,21 @@
 import React from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import { Github, Linkedin, Mail } from 'lucide-react';
+import { Github, Linkedin, Mail, FileText } from 'lucide-react';
 import { translations } from '@/data/translations';
 import { fadeInUp, staggerContainer, floatingAnimation } from '@/utils/animations';
 
 interface HeroProps {
   language: 'de' | 'en';
+  openCertificateSlideshow: () => void;
 }
 
 interface SocialLinkProps {
   href: string;
   icon: React.ReactNode;
-  hoverColor: string;
+  color: string;
+  onClick?: () => void;
+  isButton?: boolean;
+  label?: string;
 }
 
 const socialIconVariants = {
@@ -22,6 +26,25 @@ const socialIconVariants = {
     transition: {
       duration: 0.4,
       ease: "easeInOut",
+    }
+  }
+};
+
+const buttonVariants = {
+  initial: { scale: 1, backgroundColor: "rgba(0, 0, 0, 0)" },
+  hover: { 
+    scale: 1.05, 
+    backgroundColor: "rgba(5, 150, 105, 0.1)",
+    transition: {
+      duration: 0.3,
+      ease: "easeOut",
+    }
+  },
+  tap: {
+    scale: 0.95,
+    backgroundColor: "rgba(5, 150, 105, 0.2)",
+    transition: {
+      duration: 0.1,
     }
   }
 };
@@ -59,24 +82,42 @@ const AnimatedBackground = () => {
   );
 };
 
-// Refactored SocialLink component without React.FC
-const SocialLink = ({ href, icon, hoverColor }: SocialLinkProps) => (
-  <motion.a 
-    href={href}
-    target="_blank"
-    rel="noopener noreferrer"
-    variants={socialIconVariants}
-    initial="initial"
-    whileHover="hover"
-    whileTap={{ scale: 0.9 }}
-    className={`text-gray-600 dark:text-gray-400 ${hoverColor} dark:${hoverColor}`}
-  >
-    {icon}
-  </motion.a>
-);
+// Fixed SocialLink component with simpler approach
+const SocialLink = ({ href, icon, color, onClick, isButton = false, label }: SocialLinkProps) => {
+  if (isButton) {
+    return (
+      <motion.button 
+        onClick={onClick}
+        variants={buttonVariants}
+        initial="initial"
+        whileHover="hover"
+        whileTap="tap"
+        className={`flex items-center gap-2 px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 shadow-sm transition-all ${color}`}
+      >
+        {icon}
+        {label && <span className="text-sm font-medium">{label}</span>}
+      </motion.button>
+    );
+  }
+
+  return (
+    <motion.a 
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      variants={socialIconVariants}
+      initial="initial"
+      whileHover="hover"
+      whileTap={{ scale: 0.9 }}
+      className={`transition-colors duration-300 ${color}`}
+    >
+      {icon}
+    </motion.a>
+  );
+};
 
 // Refactored Hero component without React.FC
-const Hero = ({ language }: HeroProps) => {
+const Hero = ({ language, openCertificateSlideshow }: HeroProps) => {
   const { scrollY } = useScroll();
   const y = useTransform(scrollY, [0, 500], [0, -50]);
 
@@ -145,35 +186,52 @@ const Hero = ({ language }: HeroProps) => {
             >
               {translations[language].hero.title}
             </motion.p>
-            <motion.div
-              variants={staggerContainer}
-              className="flex justify-center md:justify-start space-x-4"
-            >
-              <SocialLink 
-                href="https://github.com/Sama486" 
-                icon={<Github size={24} />}
-                hoverColor="hover:text-black dark:hover:text-white"
-              />
-              <SocialLink 
-                href="https://www.linkedin.com/in/karim-benziane-b96a61232/"
-                icon={<Linkedin size={24} />}
-                hoverColor="hover:text-blue-600 dark:hover:text-blue-600"
-              />
-              <SocialLink 
-                href="mailto:k.benziane@web.de"
-                icon={<Mail size={24} />}
-                hoverColor="hover:text-red-600 dark:hover:text-red-600"
-              />
-              <SocialLink 
-                href="https://www.cloudskillsboost.google/public_profiles/ab57cc82-4633-4bab-b091-67eebec2f59e"
-                icon={
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
-                  </svg>
-                }
-                hoverColor="hover:text-blue-500 dark:hover:text-blue-400"
-              />
-            </motion.div>
+            <div className="flex flex-col space-y-4 items-center md:items-start">
+              <motion.div
+                variants={staggerContainer}
+                className="flex justify-center md:justify-start space-x-4"
+              >
+                <SocialLink 
+                  href="https://github.com/Sama486" 
+                  icon={<Github size={24} />}
+                  color="text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white"
+                />
+                <SocialLink 
+                  href="https://www.linkedin.com/in/karim-benziane-b96a61232/"
+                  icon={<Linkedin size={24} />}
+                  color="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400"
+                />
+                <SocialLink 
+                  href="mailto:k.benziane@web.de"
+                  icon={<Mail size={24} />}
+                  color="text-gray-600 dark:text-gray-400 hover:text-red-600 dark:hover:text-red-400"
+                />
+                <SocialLink 
+                  href="https://www.cloudskillsboost.google/public_profiles/ab57cc82-4633-4bab-b091-67eebec2f59e"
+                  icon={
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
+                    </svg>
+                  }
+                  color="text-gray-600 dark:text-gray-400 hover:text-blue-500 dark:hover:text-blue-400"
+                />
+              </motion.div>
+              
+              {/* Zertifikate-Button - Separate from social icons */}
+              <motion.div 
+                variants={fadeInUp}
+                className="mt-2 self-end md:self-start md:mt-4"
+              >
+                <SocialLink 
+                  href="#"
+                  icon={<FileText size={18} />}
+                  color="text-gray-700 dark:text-gray-300 hover:text-emerald-600 dark:hover:text-emerald-400"
+                  onClick={openCertificateSlideshow}
+                  isButton={true}
+                  label={language === 'en' ? 'View Certificates' : 'Weitere Zertifikate'}
+                />
+              </motion.div>
+            </div>
           </motion.div>
         </motion.div>
       </motion.div>

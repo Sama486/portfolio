@@ -120,14 +120,14 @@ const Skills = ({ language }: SkillsProps) => {
     technical: {
       bg: 'bg-blue-100',
       text: 'text-blue-800',
-      darkBg: 'bg-blue-900',
-      darkText: 'text-blue-100'
+      darkBg: 'bg-blue-100',
+      darkText: 'text-blue-800'
     },
     soft: {
       bg: 'bg-green-100',
       text: 'text-green-800',
-      darkBg: 'bg-green-900',
-      darkText: 'text-green-100'
+      darkBg: 'bg-green-100',
+      darkText: 'text-green-800'
     }
   };
 

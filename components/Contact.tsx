@@ -16,7 +16,7 @@ interface ContactItemProps {
 interface SocialLinkProps {
   href: string;
   icon: React.ReactNode;
-  hoverColor: string;
+  color: string; // Changed from hoverColor to color to include all color classes
 }
 
 const socialIconVariants = {
@@ -53,13 +53,13 @@ const ContactItem = ({ icon, content, delay = 0 }: ContactItemProps) => (
   </motion.p>
 );
 
-// Refactored SocialLink component without React.FC
-const SocialLink = ({ href, icon, hoverColor }: SocialLinkProps) => (
+// Updated SocialLink component with fixed color handling
+const SocialLink = ({ href, icon, color }: SocialLinkProps) => (
   <motion.a
     href={href}
     target="_blank"
     rel="noopener noreferrer"
-    className={`text-gray-600 dark:text-gray-400 ${hoverColor} dark:${hoverColor}`}
+    className={`transition-colors duration-300 ${color}`}
     variants={socialIconVariants}
     initial="initial"
     whileHover="hover"
@@ -79,12 +79,12 @@ const Contact = ({ language }: ContactProps) => {
       {
         href: 'https://github.com/Sama486',
         icon: <Github size={24} />,
-        hoverColor: 'hover:text-black dark:hover:text-white'
+        color: 'text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white'
       },
       {
         href: 'https://www.linkedin.com/in/karim-benziane-b96a61232/',
         icon: <Linkedin size={24} />,
-        hoverColor: 'hover:text-blue-600'
+        color: 'text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400'
       }
     ]
   };
@@ -163,7 +163,7 @@ const Contact = ({ language }: ContactProps) => {
                   key={link.href}
                   href={link.href}
                   icon={link.icon}
-                  hoverColor={link.hoverColor}
+                  color={link.color}
                 />
               ))}
             </motion.div>
