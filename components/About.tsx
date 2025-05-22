@@ -67,7 +67,7 @@ const LANGUAGES: LanguageItem[] = [
   }
 ];
 
-// Refactored About component without React.FC
+
 const About = ({ language }: AboutProps) => {
   return (
     <section id="about" className="bg-gray-50 dark:bg-gray-900 py-20 transition-colors duration-200">

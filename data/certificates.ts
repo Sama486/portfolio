@@ -58,6 +58,27 @@ export const getCertificates = (language: string): CertificateCategory[] => [
                 category: language === 'de' ? "Programmierung" : "Programming",
                 pdfUrl: "./certificates/Wichtig/Coursera Typescript.pdf",
                 description: language === 'de' ? "TypeScript-Grundlagen" : "TypeScript basics"
+            },
+            {
+                id: "programming-9",
+                title: "Coursera Typescript in React",
+                category: language === 'de' ? "Programmierung" : "Programming",
+                pdfUrl: "./certificates/Wichtig/Coursera Typescript in React.pdf",
+                description: language === 'de' ? "TypeScript in React" : "TypeScript in React"
+            },
+            {
+                id: "programming-10",
+                title: "Coursera NestJS",
+                category: language === 'de' ? "Programmierung" : "Programming",
+                pdfUrl: "./certificates/Wichtig/Coursera NestJS.pdf",
+                description: language === 'de' ? "NestJS-Grundlagen" : "NestJS basics"
+            },
+            {
+                id: "programming-11",
+                title: "Coursera Hacking",
+                category: language === 'de' ? "Programmierung" : "Programming",
+                pdfUrl: "./certificates/Wichtig/Coursera Hacking.pdf",
+                description: language === 'de' ? "Hacking Grundlagen" : "Hacking basics"
             }
         ]
     },
@@ -80,9 +101,9 @@ export const getCertificates = (language: string): CertificateCategory[] => [
             },
             {
                 id: "other-3",
-                title: "CV Karim Benziane",
+                title: "Karim Benziane Lebenslauf_CV",
                 category: language === 'de' ? "Sonstige" : "Other",
-                pdfUrl: "./certificates/Unwichtig/CV Karim Benziane.pdf",
+                pdfUrl: "./certificates/Unwichtig/Karim Benziane Lebenslauf_CV.pdf",
                 description: language === 'de' ? "Lebenslauf" : "Curriculum Vitae"
             },
             {
@@ -147,6 +168,13 @@ export const getCertificates = (language: string): CertificateCategory[] => [
                 category: language === 'de' ? "Sonstige" : "Other",
                 pdfUrl: "./certificates/Unwichtig/Verhandeln.pdf",
                 description: language === 'de' ? "Verhandlungstechniken" : "Negotiation techniques"
+            },
+            {
+                id: "other-13",
+                title: "Arbeitszeugnis Gesundheitsamt Karim",
+                category: language === 'de' ? "Sonstige" : "Other",
+                pdfUrl: "./certificates/Unwichtig/Arbeitszeugnin_Gesundheitsamt_Karim.pdf",
+                description: language === 'de' ? "Arbeitszeugnis Gesundheitsamt" : "Work reference Health Department"
             }
         ]
     }
