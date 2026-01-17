@@ -2,9 +2,31 @@ import { Experience } from '../types/interfaces';
 
 export const getExperience = (language: string): Experience[] => [
     {
+      title: language === 'de' ? "Senior Developer Azure & OpenAI" : "Senior Developer Azure & OpenAI",
+      company: "Digital David AG",
+      period: language === 'de' ? "07/2025 - Heute" : "07/2025 - Present",
+      responsibilities: [
+        language === 'de' ?
+          "Planung und Entwicklung kompletter Softwarelösungen von der Konzeption bis zur Produktivsetzung" :
+          "Planning and development of complete software solutions from conception to production",
+        language === 'de' ?
+          "Implementierung von CI/CD-Pipelines und automatisierten Deployment-Prozessen" :
+          "Implementation of CI/CD pipelines and automated deployment processes",
+        language === 'de' ?
+          "Deployment und Verwaltung von Cloud-Infrastrukturen auf Microsoft Azure" :
+          "Deployment and management of cloud infrastructures on Microsoft Azure",
+        language === 'de' ?
+          "Full-Stack-Entwicklung mit modernen Frameworks für Frontend, Backend und Datenbankarchitektur" :
+          "Full-stack development with modern frameworks for frontend, backend and database architecture",
+        language === 'de' ?
+          "Integration von KI-Funktionalitäten in Webanwendungen" :
+          "Integration of AI functionalities in web applications"
+      ]
+    },
+    {
       title: "Full Stack Developer / Proxy PO",
       company: "Gesundheitsamt Frankfurt",
-      period: language === 'de' ? "12/2023 - Heute" : "12/2023 - Present",
+      period: language === 'de' ? "12/2023 - 01/2025" : "12/2023 - 01/2025",
       responsibilities: [
         language === 'de' ?
           "Entwicklung der Softwarelösung für die Digitalisierung von Gesundheitsämtern 'GA-Lotse'" :

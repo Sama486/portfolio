@@ -3,8 +3,8 @@
   export const getSkill = (language: string): Skills => ({
     technical: [
       "Next.js", "React.js", "TypeScript", "JavaScript", "HTML", "CSS",
-      "Node.js", "C#/.NET", "MongoDB", "SQL", "Prisma", "Google Cloud",
-      "Tailwind/Bootstrap", "Linux", "Docker", "Kubernetes", "Python", "Java", "Git"
+      "Node.js", "C#/.NET", "MongoDB", "SQL", "Prisma", "Google Cloud", "Azure",
+      "Tailwind/Bootstrap", "Linux", "Docker", "Kubernetes", "Python", "Java", "Git", "AI"
     ],
     soft: [
       language === 'de' ? "Agile Methoden" : "Agile Methods",
