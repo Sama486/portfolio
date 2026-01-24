@@ -101,9 +101,9 @@ export const getCertificates = (language: string): CertificateCategory[] => [
             },
             {
                 id: "other-3",
-                title: "Karim Benziane Lebenslauf_CV",
+                title: "Karim Benziane CV_2026",
                 category: language === 'de' ? "Sonstige" : "Other",
-                pdfUrl: "./certificates/Unwichtig/Karim Benziane Lebenslauf_CV.pdf",
+                pdfUrl: "./certificates/Unwichtig/Karim Benziane CV_2026.pdf",
                 description: language === 'de' ? "Lebenslauf" : "Curriculum Vitae"
             },
             {
